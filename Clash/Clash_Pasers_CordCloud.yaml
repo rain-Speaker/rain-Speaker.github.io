@@ -31,31 +31,49 @@ parsers:
           type: select
           proxies:
         - name: 🇯🇵 Japan
-          type: select
+          type: url-test
+          url: http://www.google.com/generate_204
+          interval: 600
           proxies:
         - name: 🇨🇳 Taiwan
-          type: select
+          type: url-test
+          url: http://www.google.com/generate_204
+          interval: 600
           proxies:
         - name: 🇺🇸 UnitedStates
-          type: select
+          type: url-test
+          url: http://www.google.com/generate_204
+          interval: 600
           proxies:
         - name: 🇸🇬 Singapore
-          type: select
+          type: url-test
+          url: http://www.google.com/generate_204
+          interval: 600
           proxies:
         - name: 🇷🇺 Russia
-          type: select
+          type: url-test
+          url: http://www.google.com/generate_204
+          interval: 600
           proxies:
         - name: 🇰🇷 Korea
-          type: select
+          type: url-test
+          url: http://www.google.com/generate_204
+          interval: 600
           proxies:
         - name: 🇬🇧 UnitedKingdom
-          type: select
+          type: url-test
+          url: http://www.google.com/generate_204
+          interval: 600
           proxies:
         - name: 🇲🇾 Malaysia
-          type: select
+          type: url-test
+          url: http://www.google.com/generate_204
+          interval: 600
           proxies:
         - name: 🇩🇪 Germany
-          type: select
+          type: url-test
+          url: http://www.google.com/generate_204
+          interval: 600
           proxies:
 
       # 添加远程规则
