@@ -1,13 +1,19 @@
 parsers:
-  - url: https://www.cordcloud.one/link/GE4aU4vu39ZMMJEW?clash=1
+  # 在url处填入节点订阅链接
+  - url: 
     yaml:
       commands:
+        # 删除自带的策略组
         - proxy-groups-
+        # 删除自带的规则
         - rules-
 
-  - url: https://www.cordcloud.one/link/GE4aU4vu39ZMMJEW?clash=1
+  # 在url处填入节点订阅链接
+  - url: 
     yaml:
+      # 添加自定义策略组
       append-proxy-groups:
+        # 按功能添加策略组
         - name: 📌 Final
           type: select
           proxies:
@@ -20,6 +26,7 @@ parsers:
         - name: 📺 StreamingSE
           type: select
           proxies:
+        # 按地区划分节点
         - name: 🇭🇰 HongKong
           type: select
           proxies:
@@ -50,8 +57,8 @@ parsers:
         - name: 🇩🇪 Germany
           type: select
           proxies:
-        # Total86 HongKong38, Japan15, Taiwan8, UnitedStates9, Singapore7, Russia3, Korea2, UnitedKingdom2, Malaysia1, Germany1
-      
+
+      # 添加远程规则
       mix-rule-providers:
         Unbreak:
           type: http
@@ -115,6 +122,7 @@ parsers:
           interval: 86400
 
       append-rules:
+        # 为远程规则指定策略
         - RULE-SET, Unbreak, DIRECT
         - RULE-SET, Advertising, REJECT
         - RULE-SET, Privacy, REJECT
@@ -125,6 +133,7 @@ parsers:
         - RULE-SET, Global, 📡 Global
         - RULE-SET, China, DIRECT
         - RULE-SET, ChinaIP, DIRECT
+        # 添加本地规则
         - IP-CIDR, 10.0.0.0/8, DIRECT, no-resolve
         - IP-CIDR, 100.64.0.0/10, DIRECT, no-resolve
         - IP-CIDR, 119.28.28.28/32, DIRECT, no-resolve
@@ -138,8 +147,9 @@ parsers:
         - DOMAIN-SUFFIX, local, DIRECT
         - GEOIP, CN, DIRECT
         - MATCH, 📌 Final
-        
+
       commands:
+        # 为节点组添加对应地区的节点
         - proxy-groups.(🇭🇰 HongKong).proxies=[]proxyNames|香港|深港专线[^转]
         - proxy-groups.(🇯🇵 Japan).proxies=[]proxyNames|日本
         - proxy-groups.(🇨🇳 Taiwan).proxies=[]proxyNames|台湾
@@ -150,9 +160,11 @@ parsers:
         - proxy-groups.(🇬🇧 UnitedKingdom).proxies=[]proxyNames|英国
         - proxy-groups.(🇲🇾 Malaysia).proxies=[]proxyNames|马来西亚
         - proxy-groups.(🇩🇪 Germany).proxies=[]proxyNames|德国
+        # 为自定义策略组添加节点组
         - proxy-groups.(📌 Final).proxies=[]groupNames|^(?!📌|📡|🎬|📺).*
         - proxy-groups.(📡 Global).proxies=[]groupNames|^(?!📌|📡|🎬|📺).*
         - proxy-groups.(🎬 Streaming).proxies=[]groupNames|^(?!📌|📡|🎬|📺).*
         - proxy-groups.(📺 StreamingSE).proxies=[]groupNames|^(?!📌|📡|🎬|📺).*
+        # 为Final和StreamingSE添加直连节点
         - proxy-groups.(📌 Final).proxies.0+DIRECT
         - proxy-groups.(📺 StreamingSE).proxies.0+DIRECT
