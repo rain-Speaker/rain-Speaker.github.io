@@ -1,0 +1,99 @@
+body {
+  padding: 10px;
+  background-color: snow;
+}
+
+.header-icon{
+    width: 134px;
+    float: left;
+}
+
+.header-title{
+    float: left;
+}
+
+header a{
+  color: black;
+}
+
+li{
+    height: 30px;
+    line-height: 30px;
+    padding: 10px;
+}
+
+p{
+    padding-left: 10px;
+    line-height: 30px;
+}
+
+h1 {
+  font-size: 30px;
+  padding-left: 10px;
+}
+
+h2 {
+  font-size: 20px;
+  padding: 10px;
+}
+
+header,
+main,
+footer {
+  width: 900px;
+  outline: 1px solid gray;
+}
+
+header,
+footer {
+  height: 134px;
+  margin: 0 auto;
+  line-height: 134px;
+}
+
+main {
+  margin: 16px auto;
+}
+
+nav,
+article,
+aside {
+  float: left;
+  height: 600px;
+  outline: 1px solid gray;
+}
+
+nav,
+aside {
+  width: 134px;
+}
+
+article {
+  width: 600px;
+  margin: 0 16px;
+}
+
+/* 解决高度塌陷和外边距重叠问题 */
+.clearfix::before,
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* LoVe Fare HAte*/
+a {
+  text-decoration: none;
+}
+
+a:link {
+  color: #005282;
+}
+
+a:visited {
+  color: #005282;
+}
+
+a:hover {
+  border-bottom: 1px solid;
+}
