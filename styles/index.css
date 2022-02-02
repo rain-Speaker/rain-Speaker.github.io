@@ -11,6 +11,14 @@ body {
   text-decoration: line-through;
 }
 
+dl, dt, dd{
+  padding: 10px;
+}
+
+dt::before{
+  content: '· ';
+}
+
 .header-icon{
     width: 134px;
     float: left;
