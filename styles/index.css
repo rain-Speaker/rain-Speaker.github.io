@@ -3,6 +3,14 @@ body {
   background-color: snow;
 }
 
+.essay,
+.book,
+.music,
+.film,
+.game {
+  text-decoration: line-through;
+}
+
 .header-icon{
     width: 134px;
     float: left;
