@@ -177,7 +177,7 @@ parsers:
         - MATCH, 🎯 Final
         
       commands:
-        - proxy-groups.(🇭🇰 HongKong).proxies=[]proxyNames|香港|深港专线[^转]
+        - proxy-groups.(🇭🇰 HongKong).proxies=[]proxyNames|香港
         - proxy-groups.(🇯🇵 Japan).proxies=[]proxyNames|日本
         - proxy-groups.(🇨🇳 Taiwan).proxies=[]proxyNames|台湾
         - proxy-groups.(🇺🇸 UnitedStates).proxies=[]proxyNames|美国
