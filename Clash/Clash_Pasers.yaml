@@ -1,23 +1,26 @@
 parsers:
-  # 在url处填入节点订阅链接
-  - url: 
+  - url: https://www.example.com/
     yaml:
       commands:
-        # 删除自带的策略组
         - proxy-groups-
-        # 删除自带的规则
         - rules-
 
-  # 在url处填入节点订阅链接
-  - url: 
+  - url: https://www.example.com/
     yaml:
-      # 添加自定义策略组
       append-proxy-groups:
-        # 按功能添加策略组
-        - name: 📌 Final
+        - name: 🎯 Final
           type: select
           proxies:
         - name: 📡 Global
+          type: select
+          proxies:
+        - name: 📹 YouTube
+          type: select
+          proxies:
+        - name: 🎥 Netflix
+          type: select
+          proxies:
+        - name: 🎶 DisneyPlus
           type: select
           proxies:
         - name: 🎬 Streaming
@@ -26,57 +29,45 @@ parsers:
         - name: 📺 StreamingSE
           type: select
           proxies:
-        # 按地区划分节点
+        - name: 🔰 Guard
+          type: select
+          proxies:
+           - REJECT
+           - DIRECT
         - name: 🇭🇰 HongKong
           type: select
           proxies:
         - name: 🇯🇵 Japan
-          type: url-test
-          url: http://www.google.com/generate_204
-          interval: 600
+          type: select
           proxies:
         - name: 🇨🇳 Taiwan
-          type: url-test
-          url: http://www.google.com/generate_204
-          interval: 600
+          type: select
           proxies:
         - name: 🇺🇸 UnitedStates
-          type: url-test
-          url: http://www.google.com/generate_204
-          interval: 600
+          type: select
           proxies:
         - name: 🇸🇬 Singapore
-          type: url-test
-          url: http://www.google.com/generate_204
-          interval: 600
+          type: select
           proxies:
         - name: 🇷🇺 Russia
-          type: url-test
-          url: http://www.google.com/generate_204
-          interval: 600
+          type: select
           proxies:
         - name: 🇰🇷 Korea
-          type: url-test
-          url: http://www.google.com/generate_204
-          interval: 600
+          type: select
           proxies:
         - name: 🇬🇧 UnitedKingdom
-          type: url-test
-          url: http://www.google.com/generate_204
-          interval: 600
+          type: select
           proxies:
         - name: 🇲🇾 Malaysia
-          type: url-test
-          url: http://www.google.com/generate_204
-          interval: 600
+          type: select
           proxies:
         - name: 🇩🇪 Germany
-          type: url-test
-          url: http://www.google.com/generate_204
-          interval: 600
+          type: select
           proxies:
-
-      # 添加远程规则
+        - name: 🇫🇷 France
+          type: select
+          proxies:
+      
       mix-rule-providers:
         Unbreak:
           type: http
@@ -101,6 +92,24 @@ parsers:
           behavior: classical
           path: ./RuleSet/Hijacking.yaml
           url: https://raw.githubusercontents.com/DivineEngine/Profiles/master/Clash/RuleSet/Guard/Hijacking.yaml
+          interval: 86400
+        YouTube:
+          type: http
+          behavior: classical
+          path: ./RuleSet/YouTube.yaml
+          url: https://raw.githubusercontents.com/DivineEngine/Profiles/master/Clash/RuleSet/StreamingMedia/Video/YouTube.yaml
+          interval: 86400
+        Netflix:
+          type: http
+          behavior: classical
+          path: ./RuleSet/Netflix.yaml
+          url: https://raw.githubusercontents.com/DivineEngine/Profiles/master/Clash/RuleSet/StreamingMedia/Video/Netflix.yaml
+          interval: 86400
+        DisneyPlus:
+          type: http
+          behavior: classical
+          path: ./RuleSet/Netflix.yaml
+          url: https://raw.githubusercontents.com/DivineEngine/Profiles/master/Clash/RuleSet/StreamingMedia/Video/Netflix.yaml
           interval: 86400
         Streaming:
           type: http
@@ -140,18 +149,19 @@ parsers:
           interval: 86400
 
       append-rules:
-        # 为远程规则指定策略
         - RULE-SET, Unbreak, DIRECT
-        - RULE-SET, Advertising, REJECT
-        - RULE-SET, Privacy, REJECT
-        - RULE-SET, Hijacking, REJECT
+        - RULE-SET, Advertising, 🔰 Guard
+        - RULE-SET, Privacy, 🔰 Guard
+        - RULE-SET, Hijacking, 🔰 Guard
+        - RULE-SET, YouTube, 📹 YouTube
+        - RULE-SET, Netflix, 🎥 Netflix
+        - RULE-SET, DisneyPlus, 🎶 DisneyPlus
         - RULE-SET, Streaming, 🎬 Streaming
         - RULE-SET, StreamingSE, 📺 StreamingSE
         - RULE-SET, StreamingCN, DIRECT
         - RULE-SET, Global, 📡 Global
         - RULE-SET, China, DIRECT
         - RULE-SET, ChinaIP, DIRECT
-        # 添加本地规则
         - IP-CIDR, 10.0.0.0/8, DIRECT, no-resolve
         - IP-CIDR, 100.64.0.0/10, DIRECT, no-resolve
         - IP-CIDR, 119.28.28.28/32, DIRECT, no-resolve
@@ -164,10 +174,9 @@ parsers:
         - IP-CIDR6, fd00::/8, DIRECT, no-resolve
         - DOMAIN-SUFFIX, local, DIRECT
         - GEOIP, CN, DIRECT
-        - MATCH, 📌 Final
-
+        - MATCH, 🎯 Final
+        
       commands:
-        # 为节点组添加对应地区的节点
         - proxy-groups.(🇭🇰 HongKong).proxies=[]proxyNames|香港|深港专线[^转]
         - proxy-groups.(🇯🇵 Japan).proxies=[]proxyNames|日本
         - proxy-groups.(🇨🇳 Taiwan).proxies=[]proxyNames|台湾
@@ -178,11 +187,14 @@ parsers:
         - proxy-groups.(🇬🇧 UnitedKingdom).proxies=[]proxyNames|英国
         - proxy-groups.(🇲🇾 Malaysia).proxies=[]proxyNames|马来西亚
         - proxy-groups.(🇩🇪 Germany).proxies=[]proxyNames|德国
-        # 为自定义策略组添加节点组
-        - proxy-groups.(📌 Final).proxies=[]groupNames|^(?!📌|📡|🎬|📺).*
-        - proxy-groups.(📡 Global).proxies=[]groupNames|^(?!📌|📡|🎬|📺).*
-        - proxy-groups.(🎬 Streaming).proxies=[]groupNames|^(?!📌|📡|🎬|📺).*
-        - proxy-groups.(📺 StreamingSE).proxies=[]groupNames|^(?!📌|📡|🎬|📺).*
-        # 为Final和StreamingSE添加直连节点
-        - proxy-groups.(📌 Final).proxies.0+DIRECT
+        - proxy-groups.(🇫🇷 France).proxies=[]proxyNames|法国
+        - proxy-groups.(🎯 Final).proxies=[]groupNames|^(?!🎯|📡|📹|🎥|🎶|🎬|📺|🔰).*
+        - proxy-groups.(📡 Global).proxies=[]groupNames|^(?!🎯|📡|📹|🎥|🎶|🎬|📺|🔰).*
+        - proxy-groups.(📹 YouTube).proxies=[]groupNames|^(?!🎯|📡|📹|🎥|🎶|🎬|📺|🔰).*
+        - proxy-groups.(🎥 Netflix).proxies=[]groupNames|^(?!🎯|📡|📹|🎥|🎶|🎬|📺|🔰).*
+        - proxy-groups.(🎶 DisneyPlus).proxies=[]groupNames|^(?!🎯|📡|📹|🎥|🎶|🎬|📺|🔰).*
+        - proxy-groups.(🎬 Streaming).proxies=[]groupNames|^(?!🎯|📡|📹|🎥|🎶|🎬|📺|🔰).*
+        - proxy-groups.(📺 StreamingSE).proxies=[]groupNames|^(?!🎯|📡|📹|🎥|🎶|🎬|📺|🔰).*
+        - proxy-groups.(🎯 Final).proxies.0+DIRECT
         - proxy-groups.(📺 StreamingSE).proxies.0+DIRECT
+        
