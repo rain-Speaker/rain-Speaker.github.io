@@ -76,7 +76,7 @@ parsers:
           type: select
           proxies:
 
-      # 添加远程规则组
+      # 添加远程规则组（githubusercontent->githubusercontents）
       mix-rule-providers:
         Unbreak:
           type: http
@@ -198,7 +198,8 @@ parsers:
         - GEOIP, CN, DIRECT
         # match
         - MATCH, 🎯 Final
-        
+
+      # 正则表达式根据订阅节点风格自行调整
       commands:
         # 为节点组分配节点
         - proxy-groups.(🇭🇰 HongKong).proxies=[]proxyNames|香港|深港专线[^转]
