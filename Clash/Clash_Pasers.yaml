@@ -2,18 +2,21 @@ parsers:
   - url: https://www.example.com/
     yaml:
       commands:
+        # 删除所有策略组
         - proxy-groups-
+        # 删除所有规则
         - rules-
 
   - url: https://www.example.com/
     yaml:
+      # 添加策略组/节点组
       append-proxy-groups:
-        - name: 🎯 Final
+        # 策略组
+        - name: 🔰 Guard
           type: select
           proxies:
-        - name: 📡 Global
-          type: select
-          proxies:
+           - REJECT
+           - DIRECT
         - name: 📹 YouTube
           type: select
           proxies:
@@ -23,21 +26,23 @@ parsers:
         - name: 🎶 DisneyPlus
           type: select
           proxies:
+        - name: 🎧 Spotify
+          type: select
+          proxies:
         - name: 🎬 Streaming
           type: select
           proxies:
         - name: 📺 StreamingSE
           type: select
           proxies:
-        - name: 🔰 Guard
+        - name: 📡 Global
           type: select
           proxies:
-           - REJECT
-           - DIRECT
+        - name: 🎯 Final
+          type: select
+          proxies:
+        # 节点组
         - name: 🇭🇰 HongKong
-          type: select
-          proxies:
-        - name: 🇯🇵 Japan
           type: select
           proxies:
         - name: 🇨🇳 Taiwan
@@ -46,19 +51,16 @@ parsers:
         - name: 🇺🇸 UnitedStates
           type: select
           proxies:
-        - name: 🇸🇬 Singapore
-          type: select
-          proxies:
-        - name: 🇷🇺 Russia
+        - name: 🇯🇵 Japan
           type: select
           proxies:
         - name: 🇰🇷 Korea
           type: select
           proxies:
-        - name: 🇬🇧 UnitedKingdom
+        - name: 🇷🇺 Russia
           type: select
           proxies:
-        - name: 🇲🇾 Malaysia
+        - name: 🇬🇧 UnitedKingdom
           type: select
           proxies:
         - name: 🇩🇪 Germany
@@ -67,7 +69,14 @@ parsers:
         - name: 🇫🇷 France
           type: select
           proxies:
-      
+        - name: 🇸🇬 Singapore
+          type: select
+          proxies:
+        - name: 🇲🇾 Malaysia
+          type: select
+          proxies:
+
+      # 添加远程规则组
       mix-rule-providers:
         Unbreak:
           type: http
@@ -108,8 +117,14 @@ parsers:
         DisneyPlus:
           type: http
           behavior: classical
-          path: ./RuleSet/Netflix.yaml
-          url: https://raw.githubusercontents.com/DivineEngine/Profiles/master/Clash/RuleSet/StreamingMedia/Video/Netflix.yaml
+          path: ./RuleSet/DisneyPlus.yaml
+          url: https://raw.githubusercontents.com/DivineEngine/Profiles/master/Clash/RuleSet/StreamingMedia/Video/DisneyPlus.yaml
+          interval: 86400
+        Spotify:
+          type: http
+          behavior: classical
+          path: ./RuleSet/Spotify.yaml
+          url: https://raw.githubusercontents.com/DivineEngine/Profiles/master/Clash/RuleSet/StreamingMedia/Music/Spotify.yaml
           interval: 86400
         Streaming:
           type: http
@@ -149,6 +164,9 @@ parsers:
           interval: 86400
 
       append-rules:
+        # 自定义规则
+        - DOMAIN, www.googleadservices.com, DIRECT
+        # 为远程规则组指定策略组
         - RULE-SET, Unbreak, DIRECT
         - RULE-SET, Advertising, 🔰 Guard
         - RULE-SET, Privacy, 🔰 Guard
@@ -156,12 +174,14 @@ parsers:
         - RULE-SET, YouTube, 📹 YouTube
         - RULE-SET, Netflix, 🎥 Netflix
         - RULE-SET, DisneyPlus, 🎶 DisneyPlus
+        - RULE-SET, Spotify, 🎧 Spotify
         - RULE-SET, Streaming, 🎬 Streaming
         - RULE-SET, StreamingSE, 📺 StreamingSE
         - RULE-SET, StreamingCN, DIRECT
         - RULE-SET, Global, 📡 Global
         - RULE-SET, China, DIRECT
         - RULE-SET, ChinaIP, DIRECT
+        # 本地规则
         - IP-CIDR, 10.0.0.0/8, DIRECT, no-resolve
         - IP-CIDR, 100.64.0.0/10, DIRECT, no-resolve
         - IP-CIDR, 119.28.28.28/32, DIRECT, no-resolve
@@ -172,29 +192,35 @@ parsers:
         - IP-CIDR6, fc00::/7, DIRECT, no-resolve
         - IP-CIDR6, fe80::/10, DIRECT, no-resolve
         - IP-CIDR6, fd00::/8, DIRECT, no-resolve
+        # local
         - DOMAIN-SUFFIX, local, DIRECT
+        # geoip, cn
         - GEOIP, CN, DIRECT
+        # match
         - MATCH, 🎯 Final
         
       commands:
-        - proxy-groups.(🇭🇰 HongKong).proxies=[]proxyNames|香港
-        - proxy-groups.(🇯🇵 Japan).proxies=[]proxyNames|日本
+        # 为节点组分配节点
+        - proxy-groups.(🇭🇰 HongKong).proxies=[]proxyNames|香港|深港专线[^转]
         - proxy-groups.(🇨🇳 Taiwan).proxies=[]proxyNames|台湾
         - proxy-groups.(🇺🇸 UnitedStates).proxies=[]proxyNames|美国
-        - proxy-groups.(🇸🇬 Singapore).proxies=[]proxyNames|新加坡
-        - proxy-groups.(🇷🇺 Russia).proxies=[]proxyNames|俄罗斯
+        - proxy-groups.(🇯🇵 Japan).proxies=[]proxyNames|日本
         - proxy-groups.(🇰🇷 Korea).proxies=[]proxyNames|韩国
+        - proxy-groups.(🇷🇺 Russia).proxies=[]proxyNames|俄罗斯
         - proxy-groups.(🇬🇧 UnitedKingdom).proxies=[]proxyNames|英国
-        - proxy-groups.(🇲🇾 Malaysia).proxies=[]proxyNames|马来西亚
         - proxy-groups.(🇩🇪 Germany).proxies=[]proxyNames|德国
         - proxy-groups.(🇫🇷 France).proxies=[]proxyNames|法国
-        - proxy-groups.(🎯 Final).proxies=[]groupNames|^(?!🎯|📡|📹|🎥|🎶|🎬|📺|🔰).*
-        - proxy-groups.(📡 Global).proxies=[]groupNames|^(?!🎯|📡|📹|🎥|🎶|🎬|📺|🔰).*
-        - proxy-groups.(📹 YouTube).proxies=[]groupNames|^(?!🎯|📡|📹|🎥|🎶|🎬|📺|🔰).*
-        - proxy-groups.(🎥 Netflix).proxies=[]groupNames|^(?!🎯|📡|📹|🎥|🎶|🎬|📺|🔰).*
-        - proxy-groups.(🎶 DisneyPlus).proxies=[]groupNames|^(?!🎯|📡|📹|🎥|🎶|🎬|📺|🔰).*
-        - proxy-groups.(🎬 Streaming).proxies=[]groupNames|^(?!🎯|📡|📹|🎥|🎶|🎬|📺|🔰).*
-        - proxy-groups.(📺 StreamingSE).proxies=[]groupNames|^(?!🎯|📡|📹|🎥|🎶|🎬|📺|🔰).*
-        - proxy-groups.(🎯 Final).proxies.0+DIRECT
+        - proxy-groups.(🇸🇬 Singapore).proxies=[]proxyNames|新加坡
+        - proxy-groups.(🇲🇾 Malaysia).proxies=[]proxyNames|马来西亚
+        # 为策略组分配节点组
+        - proxy-groups.(📹 YouTube).proxies=[]groupNames|^(?!🔰|📹|🎥|🎶|🎧|🎬|📺|📡|🎯).*
+        - proxy-groups.(🎥 Netflix).proxies=[]groupNames|^(?!🔰|📹|🎥|🎶|🎧|🎬|📺|📡|🎯).*
+        - proxy-groups.(🎶 DisneyPlus).proxies=[]groupNames|^(?!🔰|📹|🎥|🎧|🎶|🎬|📺|📡|🎯).*
+        - proxy-groups.(🎧 Spotify).proxies=[]groupNames|^(?!🔰|📹|🎥|🎶|🎧|🎬|📺|📡|🎯).*
+        - proxy-groups.(🎬 Streaming).proxies=[]groupNames|^(?!🔰|📹|🎥|🎶|🎧|🎬|📺|📡|🎯).*
+        - proxy-groups.(📺 StreamingSE).proxies=[]groupNames|^(?!🔰|📹|🎥|🎶|🎧|🎬|📺|📡|🎯).*
+        - proxy-groups.(📡 Global).proxies=[]groupNames|^(?!🔰|📹|🎥|🎶|🎧|🎬|📺|📡|🎯).*
+        - proxy-groups.(🎯 Final).proxies=[]groupNames|^(?!🔰|📹|🎥|🎶|🎧|🎬|📺|📡|🎯).*
+        # 为可能需要直连的策略组添加直连
         - proxy-groups.(📺 StreamingSE).proxies.0+DIRECT
-        
+        - proxy-groups.(🎯 Final).proxies.0+DIRECT
