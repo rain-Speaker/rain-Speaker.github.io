@@ -12,6 +12,9 @@ parsers:
       # 添加策略组/节点组
       append-proxy-groups:
         # 策略组
+        - name: 🔧 TemporaryFix
+          type: select
+          proxies:
         - name: 🔰 Guard
           type: select
           proxies:
@@ -35,6 +38,9 @@ parsers:
         - name: 📺 StreamingSE
           type: select
           proxies:
+        - name: 🛫 Telegram
+          type: select
+          proxies:
         - name: 📡 Global
           type: select
           proxies:
@@ -45,16 +51,22 @@ parsers:
         - name: 🇭🇰 HongKong
           type: select
           proxies:
+        - name: 🇯🇵 Japan
+          type: select
+          proxies:
         - name: 🇨🇳 Taiwan
           type: select
           proxies:
         - name: 🇺🇸 UnitedStates
           type: select
           proxies:
-        - name: 🇯🇵 Japan
+        - name: 🇸🇬 Singapore
           type: select
           proxies:
-        - name: 🇰🇷 Korea
+        - name: 🇲🇴 Macao
+          type: select
+          proxies:
+        - name: 🇲🇾 Malaysia
           type: select
           proxies:
         - name: 🇷🇺 Russia
@@ -63,16 +75,16 @@ parsers:
         - name: 🇬🇧 UnitedKingdom
           type: select
           proxies:
+        - name: 🇰🇷 Korea
+          type: select
+          proxies:
+        - name: 🇦🇷 Argentina
+          type: select
+          proxies:
         - name: 🇩🇪 Germany
           type: select
           proxies:
         - name: 🇫🇷 France
-          type: select
-          proxies:
-        - name: 🇸🇬 Singapore
-          type: select
-          proxies:
-        - name: 🇲🇾 Malaysia
           type: select
           proxies:
 
@@ -144,6 +156,12 @@ parsers:
           path: ./RuleSet/StreamingCN.yaml
           url: https://raw.githubusercontents.com/DivineEngine/Profiles/master/Clash/RuleSet/StreamingMedia/StreamingCN.yaml
           interval: 86400
+        Telegram:
+          type: http
+          behavior: classical
+          path: ./RuleSet/Telegram.yaml
+          url: https://raw.githubusercontents.com/DivineEngine/Profiles/master/Clash/RuleSet/Extra/Telegram/Telegram.yaml
+          interval: 86400
         Global:
           type: http
           behavior: classical
@@ -178,6 +196,7 @@ parsers:
         - RULE-SET, Streaming, 🎬 Streaming
         - RULE-SET, StreamingSE, 📺 StreamingSE
         - RULE-SET, StreamingCN, DIRECT
+        - RULE-SET, Telegram, 🛫 Telegram
         - RULE-SET, Global, 📡 Global
         - RULE-SET, China, DIRECT
         - RULE-SET, ChinaIP, DIRECT
@@ -202,26 +221,32 @@ parsers:
       # 正则表达式根据订阅节点风格自行调整
       commands:
         # 为节点组分配节点
+        - proxy-groups.(🔧 TemporaryFix).proxies=[]proxyNames|.*
         - proxy-groups.(🇭🇰 HongKong).proxies=[]proxyNames|香港|深港专线[^转]
-        - proxy-groups.(🇨🇳 Taiwan).proxies=[]proxyNames|台湾
-        - proxy-groups.(🇺🇸 UnitedStates).proxies=[]proxyNames|美国
         - proxy-groups.(🇯🇵 Japan).proxies=[]proxyNames|日本
-        - proxy-groups.(🇰🇷 Korea).proxies=[]proxyNames|韩国
+        - proxy-groups.(🇨🇳 Taiwan).proxies=[]proxyNames|台湾|臺灣|臺北|台
+        - proxy-groups.(🇺🇸 UnitedStates).proxies=[]proxyNames|美国
+        - proxy-groups.(🇸🇬 Singapore).proxies=[]proxyNames|新加坡
+        - proxy-groups.(🇲🇴 Macao).proxies=[]proxyNames|澳门|澳門|澳
+        - proxy-groups.(🇲🇾 Malaysia).proxies=[]proxyNames|马来西亚
         - proxy-groups.(🇷🇺 Russia).proxies=[]proxyNames|俄罗斯
         - proxy-groups.(🇬🇧 UnitedKingdom).proxies=[]proxyNames|英国
+        - proxy-groups.(🇰🇷 Korea).proxies=[]proxyNames|韩国
+        - proxy-groups.(🇦🇷 Argentina).proxies=[]proxyNames|阿根廷
         - proxy-groups.(🇩🇪 Germany).proxies=[]proxyNames|德国
         - proxy-groups.(🇫🇷 France).proxies=[]proxyNames|法国
-        - proxy-groups.(🇸🇬 Singapore).proxies=[]proxyNames|新加坡
-        - proxy-groups.(🇲🇾 Malaysia).proxies=[]proxyNames|马来西亚
+        
         # 为策略组分配节点组
-        - proxy-groups.(📹 YouTube).proxies=[]groupNames|^(?!🔰|📹|🎥|🎶|🎧|🎬|📺|📡|🎯).*
-        - proxy-groups.(🎥 Netflix).proxies=[]groupNames|^(?!🔰|📹|🎥|🎶|🎧|🎬|📺|📡|🎯).*
-        - proxy-groups.(🎶 DisneyPlus).proxies=[]groupNames|^(?!🔰|📹|🎥|🎧|🎶|🎬|📺|📡|🎯).*
-        - proxy-groups.(🎧 Spotify).proxies=[]groupNames|^(?!🔰|📹|🎥|🎶|🎧|🎬|📺|📡|🎯).*
-        - proxy-groups.(🎬 Streaming).proxies=[]groupNames|^(?!🔰|📹|🎥|🎶|🎧|🎬|📺|📡|🎯).*
-        - proxy-groups.(📺 StreamingSE).proxies=[]groupNames|^(?!🔰|📹|🎥|🎶|🎧|🎬|📺|📡|🎯).*
-        - proxy-groups.(📡 Global).proxies=[]groupNames|^(?!🔰|📹|🎥|🎶|🎧|🎬|📺|📡|🎯).*
-        - proxy-groups.(🎯 Final).proxies=[]groupNames|^(?!🔰|📹|🎥|🎶|🎧|🎬|📺|📡|🎯).*
+        - proxy-groups.(📹 YouTube).proxies=[]groupNames|^(?!🔰|📹|🎥|🎶|🎧|🎬|📺|🛫|📡|🎯).*
+        - proxy-groups.(🎥 Netflix).proxies=[]groupNames|^(?!🔰|📹|🎥|🎶|🎧|🎬|📺|🛫|📡|🎯).*
+        - proxy-groups.(🎶 DisneyPlus).proxies=[]groupNames|^(?!🔰|📹|🎥|🎶|🎧|🎬|📺|🛫|📡|🎯).*
+        - proxy-groups.(🎧 Spotify).proxies=[]groupNames|^(?!🔰|📹|🎥|🎶|🎧|🎬|📺|🛫|📡|🎯).*
+        - proxy-groups.(🎬 Streaming).proxies=[]groupNames|^(?!🔰|📹|🎥|🎶|🎧|🎬|📺|🛫|📡|🎯).*
+        - proxy-groups.(📺 StreamingSE).proxies=[]groupNames|^(?!🔰|📹|🎥|🎶|🎧|🎬|📺|🛫|📡|🎯).*
+        - proxy-groups.(🛫 Telegram).proxies=[]groupNames|^(?!🔰|📹|🎥|🎶|🎧|🎬|📺|🛫|📡|🎯).*
+        - proxy-groups.(📡 Global).proxies=[]groupNames|^(?!🔰|📹|🎥|🎶|🎧|🎬|📺|🛫|📡|🎯).*
+        - proxy-groups.(🎯 Final).proxies=[]groupNames|^(?!🔰|📹|🎥|🎶|🎧|🎬|📺|🛫|📡|🎯).*
         # 为可能需要直连的策略组添加直连
         - proxy-groups.(📺 StreamingSE).proxies.0+DIRECT
         - proxy-groups.(🎯 Final).proxies.0+DIRECT
+        
