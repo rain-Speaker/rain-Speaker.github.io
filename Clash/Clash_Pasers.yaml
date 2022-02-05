@@ -1,4 +1,6 @@
 parsers:
+
+  # ---- ---- ---- ---- Example ---- ---- ---- ----
   - url: https://www.example.com/
     yaml:
       commands:
@@ -235,7 +237,6 @@ parsers:
         - proxy-groups.(🇦🇷 Argentina).proxies=[]proxyNames|阿根廷
         - proxy-groups.(🇩🇪 Germany).proxies=[]proxyNames|德国
         - proxy-groups.(🇫🇷 France).proxies=[]proxyNames|法国
-        
         # 为策略组分配节点组
         - proxy-groups.(📹 YouTube).proxies=[]groupNames|^(?!🔰|📹|🎥|🎶|🎧|🎬|📺|🛫|📡|🎯).*
         - proxy-groups.(🎥 Netflix).proxies=[]groupNames|^(?!🔰|📹|🎥|🎶|🎧|🎬|📺|🛫|📡|🎯).*
