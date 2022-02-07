@@ -14,6 +14,9 @@ parsers:
       # 添加策略组/节点组
       append-proxy-groups:
         # 策略组
+        - name: 📌 Default
+          type: select
+          proxies:
         - name: 🔧 TemporaryFix
           type: select
           proxies:
@@ -223,6 +226,7 @@ parsers:
       # 正则表达式根据订阅节点风格自行调整
       commands:
         # 为节点组分配节点
+        - proxy-groups.(📌 Default).proxies=[]proxyNames|.*
         - proxy-groups.(🔧 TemporaryFix).proxies=[]proxyNames|.*
         - proxy-groups.(🇭🇰 HongKong).proxies=[]proxyNames|香港|深港专线[^转]
         - proxy-groups.(🇯🇵 Japan).proxies=[]proxyNames|日本
