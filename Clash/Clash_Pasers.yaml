@@ -187,7 +187,7 @@ parsers:
           interval: 86400
 
       append-rules:
-        # 自定义规则
+        # 自定义规则（根据自己需求自行添加）
         - DOMAIN, www.googleadservices.com, DIRECT
         # 为远程规则组指定策略组
         - RULE-SET, Unbreak, DIRECT
