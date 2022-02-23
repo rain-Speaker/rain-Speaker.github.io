@@ -10,12 +10,45 @@
     <!-- 准备一个容器【Vue 模板】 -->
     <div id="root">
       <h1>事件的基本使用</h1>
+
+      <h3>欢迎学习 {{name}} ！</h3>
+      <!-- 使用v-on:xxx 绑定事件，其中xxx是事件名 -->
+      <!-- <button v-on:click="showInfo1">点我提示信息1</button> -->
+      <!-- v-on: 简写为 @ -->
+      <button @click="showInfo1">点我提示信息1（不传参）</button>
+      <!-- @click="demo" 和 @click="demo($event,xxx,...) 效果一致，但后者可以传参 -->
+      <button @click="showInfo2($event,66)">点我提示信息2（传参）</button>
     </div>
 
     <script type="text/javascript">
+      // 阻止 vue 在启动时生成生产提示。
       Vue.config.productionTip = false;
 
-      
+      const vm = new Vue({
+        el: "#root",
+        data() {
+          return {
+            name: "Vue",
+          };
+        },
+        // 事件的回调需要配置在 methods 对象中，最终会出现在 vm 上
+        methods: {
+          // methods 中配置的函数如果使用箭头函数将使 this 不指向 vm
+          // methods 中配置的函数都是被 Vue 管理的函数，this 指向 vm 或 组件实例对象
+          // showInfo1:(event)=> {
+          showInfo1(event) {
+            // console.log(this);
+            // console.log(event);
+            // console.log(event.target);
+            // console.log(event.target.innerHTML);
+            alert("同学你好！");
+          },
+          showInfo2(event, number) {
+            console.log(number);
+            alert("同学你好！！");
+          },
+        },
+      });
     </script>
   </body>
 </html>
