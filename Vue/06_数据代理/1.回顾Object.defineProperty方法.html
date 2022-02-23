@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>回顾 Object.defineProperty 方法</title>
+    <!-- 引入 Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 准备一个容器【Vue 模板】 -->
+    <div id="root">
+      <h1>回顾 Object.defineProperty 方法</h1>
+    </div>
+
+    <script type="text/javascript">
+      // 阻止 vue 在启动时生成生产提示。
+      Vue.config.productionTip = false;
+
+      let person = {
+        name: "张三",
+        gender: "男",
+        // age: 18,
+        // birthday: "11.20",
+        // height: "178cm",
+        // weight: "65kg",
+      };
+      let colour = "red";
+      // 定义并添加属性,这种方法添加的属性不可枚举
+      Object.defineProperty(person, "age", {
+        value: 18,
+      });
+      Object.defineProperty(person, "birthday", {
+        value: "11.20",
+        // 控制属性是否可枚举
+        enumerable: true,
+      });
+      Object.defineProperty(person, "height", {
+        value: "178cm",
+        // 控制属性是否可枚举
+        enumerable: true,
+        // 控制属性是否可修改
+        writable: true,
+      });
+      Object.defineProperty(person, "weight", {
+        value: "65kg",
+        // 控制属性是否可枚举
+        enumerable: true,
+        // 控制属性是否可修改
+        writable: true,
+        // 控制属性是否可删除
+        configurable: true,
+      });
+      Object.defineProperty(person, "color", {
+        /* 
+        value: "red",
+        // 控制属性是否可枚举
+        enumerable: true,
+        // 控制属性是否可修改
+        writable: true,
+        // 控制属性是否可删除
+        configurable: true,
+         */
+        // 当有人读取person的color属性时,get函数(getter)就会被调用,且返回值就是color的值
+        get() {
+          console.log("有人读取color属性了!");
+          return colour;
+        },
+        // 当有人修改person的color属性时,set函数(setter)就会被调用,且会收到修改的具体值
+        set(value) {
+          console.log("有人修改color属性了!修改的具体值为: " + value);
+          colour = value;
+        },
+      });
+
+      person.age = 19;
+      person.birthday = "01.07";
+      person.height = "179cm";
+
+      delete person.age; // 不可枚举,不可修改,不可删除
+      delete person.birthday; // 可枚举,不可修改,不可删除
+      delete person.height; // 可枚举,可修改,不可删除
+      delete person.weight; // 可枚举,可修改,可删除
+
+      for (let key in person) {
+        console.log(key + ": " + person[key]);
+      }
+      console.log(Object.keys(person));
+      console.log(person);
+    </script>
+  </body>
+</html>

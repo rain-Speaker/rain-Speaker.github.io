@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>模板语法</title>
+    <!-- 引入 Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 准备一个容器【Vue 模板】 -->
+    <div id="root">
+      <h1>模板语法</h1>
+      <h2>插值语法</h2>
+      <h3>你好, {{name.toUpperCase()}}</h3>
+      <hr />
+      <h2>指令语法</h2>
+      <a v-bind:href="info.url" v-bind:title="info.hello">1. 点击前往Rainy.link </a><br />
+      <!-- 'v-bind:' 简写为 ':' -->
+      <a :href="info.url" :title="Date.now()">2. 点击前往{{info.name}}.link </a>
+    </div>
+
+    <script type="text/javascript">
+      // 阻止 vue 在启动时生成生产提示。
+      Vue.config.productionTip = false;
+
+      // 1. 创建 Vue 实例
+      new Vue({
+        // 2. el 用于指定当前 vue 实例为哪个容器服务，值通常为 css 选择器字符串。
+        el: "#root",
+        // 3. data 中用于存储数据，数据供 el 所制定的容器去使用，值暂时先写成一个对象。
+        data: {
+          name: "Vue",
+          info: {
+            name: "Rainy",
+            url: "https://www.rainy.link",
+            hello: "你好",
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

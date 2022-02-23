@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>事件修饰符</title>
+    <!-- 引入 Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <style>
+      * {
+        margin-top: 10px;
+      }
+      .demo1 {
+        height: 50px;
+        background-color: #87ceeb;
+      }
+      .outer {
+        padding: 5px;
+        background-color: #87ceeb;
+      }
+      .inner {
+        background-color: #ffa500;
+      }
+      .list {
+        width: 200px;
+        height: 200px;
+        background-color: #bfa;
+        overflow: auto;
+      }
+      .list li {
+        height: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 准备一个容器【Vue 模板】 -->
+    <div id="root">
+      <h1>事件修饰符</h1>
+      
+      <h3>欢迎学习 {{name}} ！</h3>
+      <!-- 1. .prevent 可以阻止默认行为（常用） -->
+      <a href="https://www.rainy.link" @click.prevent="showInfo">点我提示信息</a>
+
+      <!-- 2. .stop 可以阻止事件冒泡（常用） -->
+      <div class="demo1" @click="showInfo">
+        <button @click.stop="showInfo">点我提示信息</button>
+      </div>
+
+      <!-- 3. .once 可以让事件只触发一次（常用） -->
+      <button @click.once="showInfo">点我提示信息</button>
+
+      <!-- *4. .capture 可以启用事件的捕获模式 -->
+      <div class="outer" @click.capture="showMsg(1)">
+        outer
+        <div class="inner" @click="showMsg(2)">inner</div>
+      </div>
+
+      <!-- *5. .self 可以在只有event.target是当前操作的元素时才触发事件 -->
+      <div class="demo1" @click.self="showInfo">
+        <button @click="showInfo">点我提示信息</button>
+      </div>
+
+      <!-- *6. .passive 可以让事件的默认行为立即执行，而无需等待事件回调执行完毕 -->
+      <!-- @scroll 滚动条滚动时触发 -->
+      <!-- <ul class="list" @scroll="demo"> -->
+      <!-- @wheel 鼠标滚轮滚动时触发 -->
+      <ul class="list" @wheel.passive="demo">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+      </ul>
+    </div>
+
+    <script type="text/javascript">
+      // 阻止 vue 在启动时生成生产提示。
+      Vue.config.productionTip = false;
+
+      const vm = new Vue({
+        el: "#root",
+        data() {
+          return {
+            name: "Vue",
+          };
+        },
+        methods: {
+          showInfo(e) {
+            // 阻止默认行为，比如链接跳转
+            // e.preventDefault();
+            // 阻止冒泡
+            // e.stopPropagation();
+            // alert("同学你好！");
+            console.log(e.target);
+          },
+          showMsg(msg) {
+            console.log(msg);
+          },
+          demo() {
+            for (let i = 0; i < 100000; i++) {
+              console.log("@");
+            }
+            console.log("可给我累坏了！");
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
