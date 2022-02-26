@@ -48,14 +48,13 @@ async function testPolicies(policyName, policies = []) {
   let fullAvailablePolicies = []
   let originalAvailablePolicies = []
   let echo = results => {
-    console.log(`\n ${policyName} 检测结果：`)
 //     console.log(`\n策略组 ${policyName} 检测结果：`)
     for (let { policy, status, region, time } of results) {
       switch (status) {
         case STATUS_FULL_AVAILABLE: {
           let flag = getCountryFlagEmoji(region) ?? ''
           let regionName = REGIONS?.[region.toUpperCase()]?.chinese ?? ''
-          console.log(`${policy}: ➟ ${flag}${regionName}`)
+          console.log(`${policy} ➟ ${flag}${regionName}`)
           fullAvailablePolicies.push({ policy, region, status, time })
           break
         }
