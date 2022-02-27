@@ -48,6 +48,7 @@ async function testPolicies(policyName, policies = []) {
   let fullAvailablePolicies = []
   let originalAvailablePolicies = []
   let echo = results => {
+    console.log(`\n`)
 //     console.log(`\n策略组 ${policyName} 检测结果：`)
     for (let { policy, status, region, time } of results) {
       switch (status) {
