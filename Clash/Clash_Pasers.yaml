@@ -51,12 +51,12 @@ parsers:
            - REJECT
            - DIRECT
         # 适配组
-        - name: 🔧 NetflixFix
-          type: select
-          proxies:
-        - name: 🔨 YouTubeFix
-          type: select
-          proxies:
+        # - name: 🔧 NetflixFix
+        #   type: select
+        #   proxies:
+        # - name: 🔨 YouTubeFix
+        #   type: select
+        #   proxies:
         # - name: 🔑 Disney+Fix
         #   type: select
         #   proxies:
@@ -210,7 +210,7 @@ parsers:
         # 为节点组分配节点
         - proxy-groups.(📌 Default).proxies=[]proxyNames|.*
         # - proxy-groups.(🔧 NetflixFix).proxies=[]proxyNames|Al.*[16]
-        - proxy-groups.(🔨 YouTubeFix).proxies=[]proxyNames|[^广深]港|深.*线[^转]|广港[^中]
+        # - proxy-groups.(🔨 YouTubeFix).proxies=[]proxyNames|[^广深]港|深.*线[^转]|广港[^中]
         # - proxy-groups.(🔑 Disney+Fix).proxies=[]proxyNames|.*
         - proxy-groups.(🇭🇰 HongKong).proxies=[]proxyNames|[^广深]港|深.*线[^转]|广港[^中]
         - proxy-groups.(🇯🇵 Japan).proxies=[]proxyNames|日
