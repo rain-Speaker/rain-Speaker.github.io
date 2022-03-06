@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>key的原理</title>
+    <!-- 引入 Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <style>
+      button {
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 准备一个容器【Vue 模板】 -->
+    <div id="root">
+      <h1>key的原理</h1>
+      <!-- 
+        vue中的key有什么作用？（key的内部原理）
+						
+						1. 虚拟DOM中key的作用：
+										key是虚拟DOM对象的标识，当数据发生变化时，Vue会根据【新数据】生成【新的虚拟DOM】, 
+										随后Vue进行【新虚拟DOM】与【旧虚拟DOM】的差异比较，比较规则如下：
+										
+						2.对比规则：
+									(1).旧虚拟DOM中找到了与新虚拟DOM相同的key：
+												①.若虚拟DOM中内容没变, 直接使用之前的真实DOM！
+												②.若虚拟DOM中内容变了, 则生成新的真实DOM，随后替换掉页面中之前的真实DOM。
+
+									(2).旧虚拟DOM中未找到与新虚拟DOM相同的key
+												创建新的真实DOM，随后渲染到到页面。
+												
+						3. 用index作为key可能会引发的问题：
+											1. 若对数据进行：逆序添加、逆序删除等破坏顺序操作:
+															会产生没有必要的真实DOM更新 ==> 界面效果没问题, 但效率低。
+
+											2. 如果结构中还包含输入类的DOM：
+															会产生错误DOM更新 ==> 界面有问题。
+
+						4. 开发中如何选择key?:
+											1.最好使用每条数据的唯一标识作为key, 比如id、手机号、身份证号、学号等唯一值。
+											2.如果不存在对数据的逆序添加、逆序删除等破坏顺序操作，仅用于渲染列表用于展示，
+												使用index作为key是没有问题的。
+                       -->
+
+      <!-- v-for 遍历数组 :key="index -->
+      <h3>遍历数组 :key="index"</h3>
+      <button @click.once="addPer">添加一个 赵六</button>
+      <h4>:key="index"</h4>
+      <ul>
+        <li v-for="(per,index) in persons" :key="index">
+          {{index}}--{{per.id}}: {{per.name}}, {{per.age}}岁
+          <input type="text" />
+        </li>
+      </ul>
+
+      <!-- v-for 遍历数组 :key="p.id" -->
+      <h4>:key="p.id"</h4>
+      <ul>
+        <li v-for="(per,index) in persons" :key="per.id">
+          {{index}}--{{per.id}}: {{per.name}}, {{per.age}}岁
+          <input type="text" />
+        </li>
+      </ul>
+    </div>
+
+    <script type="text/javascript">
+      // 阻止 vue 在启动时生成生产提示。
+      Vue.config.productionTip = false;
+
+      const vm = new Vue({
+        el: "#root",
+        data() {
+          return {
+            persons: [
+              {
+                id: "001",
+                name: "张三",
+                age: "18",
+              },
+              {
+                id: "002",
+                name: "李四",
+                age: "28",
+              },
+              {
+                id: "003",
+                name: "王五",
+                age: "38",
+              },
+            ],
+          };
+        },
+        methods: {
+          addPer() {
+            const per = {
+              id: "004",
+              name: "赵六",
+              age: "48",
+            };
+            this.persons.unshift(per);
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

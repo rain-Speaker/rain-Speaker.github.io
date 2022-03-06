@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>分析生命周期</title>
+    <!-- 引入 Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <h1>分析生命周期</h1>
+
+      <h2>当前的n值为：{{n}}</h2>
+      <button @click="add">点击n+1</button>
+      <button @click="bye">点击销毁vm</button>
+    </div>
+    <script>
+      Vue.config.productionTip = false; // 阻止 vue 在启动时生成生产提示。
+
+      new Vue({
+        el: "#root",
+        data() {
+          return {
+            n: 1,
+          };
+        },
+        watch:{
+          n(){
+            console.log('n被改变了');
+          }
+        },
+        methods: {
+          add() {
+            console.log('add');
+            this.n++;
+          },
+          bye() {
+            console.log('bye');
+            this.$destroy();
+          },
+        },
+        beforeCreate() {
+          console.log("beforeCreate");
+          // console.log(this);
+          // debugger;
+        },
+        created() {
+          console.log("created");
+          // console.log(this);
+          // debugger;
+        },
+        beforeMount() {
+          console.log("beforeMount");
+          // console.log(this);
+          // debugger;
+        },
+        mounted() {
+          console.log("mounted");
+          // console.log(this);
+          // debugger;
+        },
+        beforeUpdate() {
+          console.log("beforeUpdate");
+          // console.log(this);
+          // debugger;
+        },
+        updated() {
+          console.log("updated");
+          // console.log(this);
+          // debugger;
+        },
+        beforeDestroy() {
+          console.log("beforeDestroy");
+          // console.log(this);
+          // debugger;
+        },
+        destroyed() {
+          console.log("destroyed");
+          // console.log(this);
+          // debugger;
+        },
+      });
+    </script>
+  </body>
+</html>

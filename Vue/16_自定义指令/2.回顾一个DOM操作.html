@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>回顾一个DOM操作</title>
+    <style>
+      .demo {
+        background-color: orange;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 准备一个容器 -->
+    <div id="root">
+      <h1>回顾一个DOM操作</h1>
+
+      <!-- <button id="btn">点击创建一个输入框</button> -->
+      <button>点击创建一个输入框</button>
+      <script type="text/javascript">
+        let btn = document.querySelector("button");
+
+        btn.onclick = function () {
+          let inp = document.createElement("input");
+
+          inp.value = 88;
+          inp.className = "demo";
+
+          document.body.appendChild(inp);
+
+          inp.focus();
+          inp.parentElement.style.backgroundColor = "skyblue";
+        };
+      </script>
+    </div>
+
+    <script></script>
+  </body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>一个重要的内置关系</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <h1>一个重要的内置关系</h1>
+    <!-- 
+				1.一个重要的内置关系：VueComponent.prototype.__proto__ === Vue.prototype
+				2.为什么要有这个关系：让组件实例对象（vc）可以访问到 Vue原型上的属性、方法。
+		-->
+    <div id="root"></div>
+
+    <script>
+      Vue.config.productionTip = false; // 阻止 vue 在启动时生成生产提示。
+      Vue.prototype.x = 99;
+
+      // 定义school组件
+      const school = Vue.extend({
+        name: "school",
+        template: `
+          <div>
+            <h3>学校名称：{{name}}</h3>
+            <h3>学校地址：{{address}}</h3>
+            <button @click="showX">点击显示Vue.prototype.x</button>
+          </div>
+        `,
+        data() {
+          return {
+            name: "Vue",
+            address: "北京",
+          };
+        },
+        methods: {
+          showX() {
+            alert(this.x);
+          },
+        },
+      });
+
+      // 创建vm
+      const vm = new Vue({
+        el: "#root",
+        template: `
+        <div>
+          <school></school>
+          
+        </div>
+        `,
+        data: {
+          msg: "你好",
+        },
+        // 注册组件（局部注册）
+        components: {
+          school,
+        },
+      });
+
+      console.log(school.prototype.__proto__ === Vue.prototype);
+
+      // // 定义一个构造函数
+      // function Demo() {
+      //   this.a = 1;
+      //   this.b = 2;
+      // }
+      // // 创建一个Demo的实例对象
+      // const d = new Demo();
+
+      // console.log(Demo.prototype); // 显式原型属性（函数必有）
+      // console.log(d.__proto__); // 隐式原型属性（对象必有）
+
+      // Demo.prototype.x = 99; // 程序员通过显示原型属性操作原型对象，追加一个x属性，值为99
+
+      // console.log(d.__proto__.x);
+      // console.log(d.x);
+    </script>
+  </body>
+</html>

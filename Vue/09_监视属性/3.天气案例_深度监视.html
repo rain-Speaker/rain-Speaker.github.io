@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>天气案例_深度监视</title>
+    <!-- 引入 Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 准备一个容器【Vue 模板】 -->
+    <div id="root">
+      <h1>天气案例_深度监视</h1>
+
+      <h3>今天天气很{{info}}</h3>
+      <button @click="changeWeather">切换天气</button>
+      <hr />
+      <h3>a的值是:{{numbers.a}}</h3>
+      <button @click="numbers.a++">点击让a+1</button>
+      <h3>b的值是:{{numbers.b}}</h3>
+      <button @click="numbers.b++">点击让b+1</button>
+    </div>
+
+    <script type="text/javascript">
+      // 阻止 vue 在启动时生成生产提示。
+      Vue.config.productionTip = false;
+
+      const vm = new Vue({
+        el: "#root",
+        data() {
+          return {
+            isHot: true,
+            numbers: {
+              a: 1,
+              b: 2,
+            },
+          };
+        },
+        computed: {
+          info() {
+            return this.isHot ? "炎热" : "凉爽";
+          },
+        },
+        methods: {
+          changeWeather() {
+            this.isHot = !this.isHot;
+          },
+        },
+        // 事件监视第一种方法
+        watch: {
+          isHot: {
+            handler(newValue, oldValue) {
+              console.log("isHot 被改变了", newValue, oldValue);
+            },
+          },
+          // 监视多级结构中某个属性的变化
+          // "numbers.a": {
+          //   handler(newValue, oldValue) {
+          //     console.log("a被改变了", newValue, oldValue);
+          //   },
+          // },
+          // 监视多级结构中所有属性的变化
+          numbers: {
+            // 要监视多级需开启深度监视
+            deep: true,
+            handler(newValue, oldValue) {
+              console.log("numbers 被改变了", newValue, oldValue);
+            },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

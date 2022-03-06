@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>列表排序</title>
+    <!-- 引入 Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+    <style>
+      button {
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 准备一个容器【Vue 模板】 -->
+    <div id="root">
+      <h1>列表排序</h1>
+
+      <!-- v-for 遍历数组 -->
+      <h3>遍历数组</h3>
+      <!-- 模糊搜索 -->
+      <input type="text" placeholder="请输入名字" v-model="keyWord" />
+      <button @click="sortType = 2">年龄升序</button>
+      <button @click="sortType = 1">年龄降序</button>
+      <button @click="sortType = 0">原序</button>
+      <ul>
+        <li v-for="(per,index) in filPersons" :key="per.id">{{index}}--{{per.id}}: {{per.name}}, {{per.age}}岁, {{per.sex}}</li>
+      </ul>
+    </div>
+
+    <script type="text/javascript">
+      // 阻止 vue 在启动时生成生产提示。
+      Vue.config.productionTip = false;
+
+      const vm = new Vue({
+        el: "#root",
+        data() {
+          return {
+            keyWord: "",
+            sortType: "0", // 0-原序，1-降序，2-升序
+            persons: [
+              {
+                id: "001",
+                name: "马冬梅",
+                age: "13",
+                sex: "女",
+              },
+              {
+                id: "002",
+                name: "周杰伦",
+                age: "35",
+                sex: "男",
+              },
+              {
+                id: "003",
+                name: "周冬雨",
+                age: "78",
+                sex: "女",
+              },
+              {
+                id: "004",
+                name: "温兆伦",
+                age: "41",
+                sex: "男",
+              },
+              {
+                id: "005",
+                name: "瑞雪兆丰年",
+                age: "4",
+                sex: "男",
+              },
+              {
+                id: "006",
+                name: "风调雨顺",
+                age: "88",
+                sex: "女",
+              },
+              {
+                id: "007",
+                name: "冬季干燥",
+                age: "59",
+                sex: "女",
+              },
+              {
+                id: "008",
+                name: "马到成功",
+                age: "27",
+                sex: "男",
+              },
+              {
+                id: "009",
+                name: "马踏飞燕",
+                age: "86",
+                sex: "女",
+              },
+              {
+                id: "010",
+                name: "马到成功",
+                age: "1",
+                sex: "男",
+              },
+              {
+                id: "011",
+                name: "雨季",
+                age: "100",
+                sex: "女",
+              },
+            ],
+          };
+        },
+        computed: {
+          filPersons() {
+            const arr = this.persons.filter((per) => {
+              return per.name.indexOf(this.keyWord) !== -1;
+            });
+            switch (this.sortType) {
+              case 0:
+                break;
+              case 1:
+                arr.sort((per1, per2) => {
+                  return per2.age - per1.age;
+                });
+                break;
+              case 2:
+                arr.sort((per1, per2) => {
+                  return per1.age - per2.age;
+                });
+                break;
+            }
+            return arr;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

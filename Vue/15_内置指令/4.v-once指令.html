@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>v-once指令</title>
+    <!-- 引入 Vue -->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!-- 准备一个容器 -->
+    <div id="root">
+      <h1>v-once指令</h1>
+      <!-- 
+			    v-once指令：
+						  1.v-once所在节点在初次动态渲染后，就视为静态内容了。
+						  2.以后数据的改变不会引起v-once所在结构的更新，可以用于优化性能。
+		  -->
+
+      <h3 v-once>初始化的n值：{{n}}</h3>
+      <h3>当前的n值：{{n}}</h3>
+      <button @click="n++">点击n+1</button>
+    </div>
+
+    <script>
+      Vue.config.productionTip = false; // 阻止 vue 在启动时生成生产提示。
+
+      const vm = new Vue({
+        el: "#root",
+        data() {
+          return {
+            n: 2,
+          };
+        },
+      });
+    </script>
+  </body>
+</html>
