@@ -49,7 +49,7 @@ async function testPolicies(policyName, policies = []) {
   let originalAvailablePolicies = []
   let echo = results => {
     console.log(`\n`)
-//     console.log(`\n策略组 ${policyName} 检测结果：`)
+    console.log(`\n策略组 ${policyName} 检测结果：`)
     for (let { policy, status, region, time } of results) {
       switch (status) {
         case STATUS_FULL_AVAILABLE: {
@@ -165,7 +165,7 @@ function getFilmPage(filmId, policyName) {
 }
 
 async function test(policyName) {
-//   console.log(`开始测试 ${policyName}`)
+  console.log(`开始测试 ${policyName}`)
   let startTime = new Date().getTime()
   let result = await Promise.race([getFilmPage(81215567, policyName), timeout(t)])
     .then(region => {
