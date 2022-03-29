@@ -1,0 +1,33 @@
+<!--pages/home/home.wxml-->
+
+<!-- 轮播图 -->
+<swiper indicator-dots circular autoplay interval="3000">
+  <swiper-item wx:for="{{swiperList}}" wx:key="id">
+    <image src="{{item.image}}" mode="widthFix" lazy-load></image>
+  </swiper-item>
+</swiper>
+<!-- 九宫格 -->
+<view class="grid-list">
+  <view class="grid-item" wx:for="{{gridList}}" wx:key="id" bindtap="goToPage" data-type="navigateTo" data-page="shoplist" data-params="id={{item.id}}&name={{item.name}}">
+    <image src="{{item.icon}}"></image>
+    <text>{{item.name}}</text>
+  </view>
+</view>
+<!-- 图片区域 -->
+<view class="img-box">
+  <image src="../../images/juhuasuan.png" mode="widthFix"></image>
+  <image src="../../images/taoqianggou.png" mode="widthFix"></image>
+</view>
+
+<!-- 声明式页面跳转 -->
+<navigator url="/pages/message/message" open-type="switchTab">导航到消息页面(tab)</navigator>
+<navigator url="/pages/info/info" open-type="navigate">导航到信息页面(非tab)</navigator>
+<navigator url="/pages/info/info?name=张三&age=20" open-type="navigate">导航到信息页面(传参)</navigator>
+
+<!-- 编程式页面跳转 -->
+<button bindtap="goToPage" data-type="switchTab" data-page="message">跳转到消息页面(tab)</button>
+<button bindtap="goToPage" data-type="navigateTo" data-page="info">跳转到信息页面(非tab)</button>
+<button bindtap="goToPage" data-type="navigateTo" data-page="info" data-params="name=张三&age=200">跳转到信息页面(传参)</button>
+
+<!-- 自定义组件 -->
+<my-test1></my-test1>

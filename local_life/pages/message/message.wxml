@@ -1,0 +1,48 @@
+<!--pages/message/message.wxml-->
+<!-- 3D轮播图 -->
+<swiper circular autoplay previous-margin='50px' next-margin='50px' bindchange="swiperChange" style='height:{{swiperH}};'>
+  　　<swiper-item wx:for='{{imgList}}'>
+    　　　　<image class='le-img {{nowIdx==index?"le-active":""}}' bindload='getHeight' src='{{item}}' style='height:{{swiperH}};'></image>
+    　　</swiper-item>
+</swiper>
+
+<text>pages/message/message.wxml</text>
+
+<view>count 值为：{{count}}</view>
+<button bindtap="addCount">count++</button>
+<view>\n刷新次数为：{{refreshCount}}</view>
+
+<!-- 使用过滤器 -->
+<view>{{m1.toUpper(username)}}</view>
+<view>{{m2.toLower(city)}}</view>
+
+<!-- weui -->
+<!-- 徽标 -->
+<mp-badge content="2"></mp-badge>
+<!-- 加载图标 -->
+<mp-loading type="circle" tips=""></mp-loading>
+<!-- icon -->
+<mp-icon icon="bellring-on"></mp-icon>
+<mp-icon icon="bellring-off"></mp-icon>
+<!-- 左滑菜单 -->
+<view>
+  <mp-slideview buttons="{{slideButtons}}" bindbuttontap="slideButtonTap">
+    <mp-cell value="左滑可以删除" footer="文字类型"></mp-cell>
+  </mp-slideview>
+</view>
+<view>
+  <mp-slideview buttons="{{slideButtons}}" bindbuttontap="slideButtonTap" icon="true">
+    <mp-cell value="左滑可以删除" footer="图标类型"></mp-cell>
+  </mp-slideview>
+</view>
+<!-- 搜索栏 -->
+<mp-searchbar focus></mp-searchbar>
+
+<!-- 内置过滤器 -->
+<wxs module="m1">
+  module.exports.toUpper = function (str) {
+    return str.toUpperCase();
+  }
+</wxs>
+<!-- 外联过滤器 -->
+<wxs src="../../utils/tools.wxs" module="m2"></wxs>

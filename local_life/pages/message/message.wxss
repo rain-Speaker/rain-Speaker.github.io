@@ -1,0 +1,17 @@
+/* pages/message/message.wxss */
+
+swiper {
+  padding-top: 30px;
+}
+
+.le-img {
+  width: 100%;
+  display: block;
+  transform: scale(0.8);
+  transition: all 0.3s ease;
+  border-radius: 12px;
+}
+
+.le-img.le-active {
+  transform: scale(1);
+}
