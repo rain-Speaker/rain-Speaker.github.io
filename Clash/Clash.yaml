@@ -3,7 +3,7 @@ proxy-providers:
   # AirTCP
   AirTCP:
     type: http
-    url: https://airtcplink2.top/link/5siIKBkFVIRmRWFu?clash=1
+    url: https://xxxxxxxx
     interval: 86400
     path: ./AirTCP.yaml
     health-check:
@@ -13,7 +13,7 @@ proxy-providers:
   # CordCloud
   CordCloud:
     type: http
-    url: https://www.cordcloud.one/link/JchVDM82wCLG6hKs?clash=1
+    url: https://xxxxxxxx
     interval: 86400
     path: ./CordCloud.yaml
     health-check:
