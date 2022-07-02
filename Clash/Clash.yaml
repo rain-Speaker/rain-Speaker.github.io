@@ -1,0 +1,236 @@
+# 节点组
+proxy-providers:
+  # AirTCP
+  AirTCP:
+    type: http
+    url: https://airtcplink2.top/link/5siIKBkFVIRmRWFu?clash=1
+    interval: 86400
+    path: ./AirTCP.yaml
+    health-check:
+      enable: true
+      interval: 3600
+      url: http://www.gstatic.com/generate_204
+  # CordCloud
+  CordCloud:
+    type: http
+    url: https://www.cordcloud.one/link/JchVDM82wCLG6hKs?clash=1
+    interval: 86400
+    path: ./CordCloud.yaml
+    health-check:
+      enable: true
+      interval: 3600
+      url: http://www.gstatic.com/generate_204
+# 规则组
+rule-providers:
+  # 1.规则修正
+  Unbreak:
+    type: http
+    behavior: classical
+    path: ./RuleSet/Unbreak.yaml
+    url: https://raw.githubusercontent.com/DivineEngine/Profiles/master/Clash/RuleSet/Unbreak.yaml
+    interval: 86400
+  # 2.广告
+  Advertising:
+    type: http
+    behavior: classical
+    path: ./RuleSet/Advertising.yaml
+    url: https://raw.githubusercontent.com/DivineEngine/Profiles/master/Clash/RuleSet/Guard/Advertising.yaml
+    interval: 86400
+  # 3.隐私
+  Privacy:
+    type: http
+    behavior: classical
+    path: ./RuleSet/Privacy.yaml
+    url: https://raw.githubusercontent.com/DivineEngine/Profiles/master/Clash/RuleSet/Guard/Privacy.yaml
+    interval: 86400
+  # 4.防劫持
+  Hijacking:
+    type: http
+    behavior: classical
+    path: ./RuleSet/Hijacking.yaml
+    url: https://raw.githubusercontent.com/DivineEngine/Profiles/master/Clash/RuleSet/Guard/Hijacking.yaml
+    interval: 86400
+  # 5.油管
+  YouTube:
+    type: http
+    behavior: classical
+    path: ./RuleSet/YouTube.yaml
+    url: https://raw.githubusercontent.com/DivineEngine/Profiles/master/Clash/RuleSet/StreamingMedia/Video/YouTube.yaml
+    interval: 86400
+  # 6.网飞
+  Netflix:
+    type: http
+    behavior: classical
+    path: ./RuleSet/Netflix.yaml
+    url: https://raw.githubusercontent.com/DivineEngine/Profiles/master/Clash/RuleSet/StreamingMedia/Video/Netflix.yaml
+    interval: 86400
+  # 7.国外流媒体
+  Streaming:
+    type: http
+    behavior: classical
+    path: ./RuleSet/Streaming.yaml
+    url: https://raw.githubusercontent.com/DivineEngine/Profiles/master/Clash/RuleSet/StreamingMedia/Streaming.yaml
+    interval: 86400
+  # 8.国内分地区提供服务的流媒体
+  StreamingSE:
+    type: http
+    behavior: classical
+    path: ./RuleSet/StreamingSE.yaml
+    url: https://raw.githubusercontent.com/DivineEngine/Profiles/master/Clash/RuleSet/StreamingMedia/StreamingSE.yaml
+    interval: 86400
+  # 9.国内流媒体
+  StreamingCN:
+    type: http
+    behavior: classical
+    path: ./RuleSet/StreamingCN.yaml
+    url: https://raw.githubusercontent.com/DivineEngine/Profiles/master/Clash/RuleSet/StreamingMedia/StreamingCN.yaml
+    interval: 86400
+  # 10.STEAM
+  Steam:
+    type: http
+    behavior: classical
+    path: ./RuleSet/Steam.yaml
+    url: https://raw.githubusercontent.com/DivineEngine/Profiles/master/Clash/RuleSet/Extra/Game/Steam.yaml
+    interval: 86400
+  # 11.TG
+  Telegram:
+    type: http
+    behavior: classical
+    path: ./RuleSet/Telegram.yaml
+    url: https://raw.githubusercontent.com/DivineEngine/Profiles/master/Clash/RuleSet/Extra/Telegram/Telegram.yaml
+    interval: 86400
+  # 12.国外服务
+  Global:
+    type: http
+    behavior: classical
+    path: ./RuleSet/Global.yaml
+    url: https://raw.githubusercontent.com/DivineEngine/Profiles/master/Clash/RuleSet/Global.yaml
+    interval: 86400
+  # 13.国内服务
+  China:
+    type: http
+    behavior: classical
+    path: ./RuleSet/China.yaml
+    url: https://raw.githubusercontent.com/DivineEngine/Profiles/master/Clash/RuleSet/China.yaml
+    interval: 86400
+proxies:
+# 策略组
+proxy-groups:
+  # 1.默认
+  - name: 📌 Default
+    type: select
+    proxies:
+    use:
+      - AirTCP
+      - CordCloud
+  # 2.油管
+  - name: 📹 YouTube
+    type: select
+    proxies:
+      - ⚡ Direct
+      - 📌 Default
+    use:
+      - AirTCP
+      - CordCloud
+  # 3.网飞
+  - name: 🎥 Netflix
+    type: select
+    proxies:
+      - ⚡ Direct
+      - 📌 Default
+    use:
+      - AirTCP
+      - CordCloud
+  # 4.国外流媒体
+  - name: 🎬 Streaming
+    type: select
+    proxies:
+      - ⚡ Direct
+      - 📌 Default
+    use:
+      - AirTCP
+      - CordCloud
+  # 5.国内分地区提供服务的流媒体
+  - name: 📺 StreamingSE
+    type: select
+    proxies:
+      - ⚡ Direct
+      - 📌 Default
+    use:
+      - AirTCP
+      - CordCloud
+  # 6.STEAM
+  - name: 🎮 Steam
+    type: select
+    proxies:
+      - ⚡ Direct
+      - 📌 Default
+    use:
+      - AirTCP
+      - CordCloud
+  # 7.TG
+  - name: 🛬 Telegram
+    type: select
+    proxies:
+      - ⚡ Direct
+      - 📌 Default
+    use:
+      - AirTCP
+      - CordCloud
+  # 8.国外服务
+  - name: 📡 Global
+    type: select
+    proxies:
+      - ⚡ Direct
+      - 📌 Default
+    use:
+      - AirTCP
+      - CordCloud
+  # 9.其他流量去向
+  - name: 🎯 Final
+    type: select
+    proxies:
+      - ⚡ Direct
+      - 📌 Default
+    use:
+      - AirTCP
+      - CordCloud
+  # 10.直连
+  - name: ⚡ Direct
+    type: select
+    proxies:
+      - DIRECT
+  # 11.拒绝
+  - name: ⛔ Reject
+    type: select
+    proxies:
+      - REJECT
+# 规则
+rules:
+  # - DOMAIN-SUFFIX,google.com,auto
+  # - DOMAIN-KEYWORD,google,auto
+  # - DOMAIN,google.com,auto
+  # - DOMAIN-SUFFIX,ad.com,REJECT
+  # - SRC-IP-CIDR,192.168.1.201/32,DIRECT
+  # # optional param "no-resolve" for IP rules (GEOIP, IP-CIDR, IP-CIDR6)
+  # - IP-CIDR,127.0.0.0/8,DIRECT
+  # - GEOIP,CN,DIRECT
+  # - DST-PORT,80,DIRECT
+  # - SRC-PORT,7777,DIRECT
+  # - RULE-SET,apple,REJECT # Premium only
+  # - MATCH,auto
+  - RULE-SET, Unbreak, ⚡ Direct
+  - RULE-SET, Advertising, ⛔ Reject
+  - RULE-SET, Privacy, ⛔ Reject
+  - RULE-SET, Hijacking, ⛔ Reject
+  - RULE-SET, YouTube, 📹 YouTube
+  - RULE-SET, Netflix, 🎥 Netflix
+  - RULE-SET, Streaming, 🎬 Streaming
+  - RULE-SET, StreamingSE, 📺 StreamingSE
+  - RULE-SET, StreamingCN, ⚡ Direct
+  - RULE-SET, Steam, 🎮 Steam
+  - RULE-SET, Telegram, 🛬 Telegram
+  - RULE-SET, Global, 📡 Global
+  - RULE-SET, China, ⚡ Direct
+  - GEOIP, CN, ⚡ Direct
+  - MATCH, 🎯 Final
